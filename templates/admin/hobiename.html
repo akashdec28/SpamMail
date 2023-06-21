@@ -1,0 +1,50 @@
+<html>
+
+<script type="text/javascript">
+
+    function validation() {
+
+        var alpha = /^[a-zA-Z]+$/;
+        var num = /^[0-9]+$/;
+
+        var hobie = document.getElementById("hobie")
+    
+
+        if (hobie.value.length == 0) {
+            alert("please enter your Hobie")
+            return false;
+        }
+
+        else {
+            return true;
+        }
+    }
+</script>
+
+
+
+<body>
+    <form method="post" action="{% url 'hobieAction' %}">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>Add your Hobies</td>
+                <td><input type="text" name="hobies" id="hobie"></td>
+            </tr>
+
+            <tr>
+                <td><input type="submit" value="Add" onclick="return validation()"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+{% if messages %}
+	{% for msg in messages %}
+	<script>
+		alert('{{msg}}')
+	</script>
+	{% endfor %}
+{% endif %}
+
+</html>

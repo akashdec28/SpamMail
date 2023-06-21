@@ -1,0 +1,71 @@
+<html>
+<script src="/static/jquery-1.8.3.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $("#username").change(function () {
+
+            var username = $("#username").val();
+            $.ajax({
+                url: "{% url 'usercheckforPC' %}",
+                data: { 'getusername': username },
+                success: function (data) {
+                    if (data.valid == "not exist") {
+                        alert("Invalid User")
+                        $("#getusername").val('');
+                    }
+                }
+            });
+        });
+
+    });
+
+
+
+
+
+</script>
+
+
+
+
+
+<script type="text/javascript">
+
+    function validation() {
+
+        var alpha = /^[a-zA-Z]+$/;
+        var num = /^[0-9]+$/;
+
+        var username = document.getElementById("reciversname")
+    
+        if (username.value.length == 0) {
+            alert("Please enter your Username")
+            return false;
+        }
+
+        else {
+            return true;
+        }
+    }
+</script>
+
+<body>
+    <form method="post" action="{% url 'forgotpassAction' %}">
+        {%csrf_token%}
+
+        <table>
+            <tr>
+                <td>Username</td>
+                <td><input type="text" name="username" id="username"></td>
+            </tr>
+
+            <tr>
+                <td><input type="submit" value="Next" onclick="return validation()"></td>
+            </tr>
+
+        </table>
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,112 @@
+<html>
+
+<script src="/static/jquery-1.8.3.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $("#contactid").change(function () {
+
+            var receivername = $("#contactid").val();
+            $.ajax({
+                url: "{% url 'blacklistvalidation' %}",
+                data: { 'recivername': receivername },
+                success: function (data) {
+                    if (data.valid == "not exist") {
+                        alert("Contact ID does not match RID")
+                        $("#receivername").val('');
+                    }
+                }
+            });
+        });
+
+    });
+
+</script>
+
+
+
+
+<script type="text/javascript">
+
+    function validation() {
+
+        var alpha = /^[a-zA-Z]+$/;
+        var num = /^[0-9]+$/;
+
+        var contactid = document.getElementById("contactid")
+        var name = document.getElementById("name")
+        var remarks = document.getElementById("remarks")
+   
+     if (contactid.value.length == 0) {
+            alert("Please enter a contact ID");
+            return false;
+        }
+
+
+        else if (name.value.length == 0) {
+            alert("Please enter a name");
+            return false;
+        }
+
+        else if (!name.value.match(alpha)) {
+            alert("Invalid characters in name field");
+            name.focus();
+            return false;
+        }
+
+
+        else if (remarks.value.length == 0) {
+            alert("Remarks field can't be empty");
+            return false;
+        }
+
+        else {
+            return true;
+        }
+    }
+</script>
+
+
+
+
+<body>
+
+    <form method="post" action="{% url 'blacklistAction' %}">
+        {%csrf_token%}
+
+        <table>
+
+            <tr>
+                <td>Contact ID</td>
+                <td><input type="text" name="contactid" id="contactid"></td>
+            </tr>
+
+            <tr>
+                <td>Name</td>
+                <td><input type="text" name="name" id="name"></td>
+            </tr>
+
+            <tr>
+                <td>Remarks</td>
+                <td><textarea name="remarks" id="remarks" cols="30" rows="5"></textarea></td>
+            </tr>
+
+            <tr>
+                <td><input type="submit" value="Add to blacklist" onclick="return validation()"></td>
+            </tr>
+
+
+        </table>
+    </form>
+
+</body>
+
+{% if messages %}
+{% for msg in messages %}
+<script>
+    alert('{{msg}}')
+</script>
+{% endfor %}
+{% endif %}
+
+</html>

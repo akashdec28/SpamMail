@@ -1,0 +1,55 @@
+<html>
+
+<body>
+
+    <form method="post" action="{% url 'trashAction' %}">
+        {%csrf_token%}
+
+        <table>
+
+            <tr>
+                <th>Recivers ID</th>
+                <th>Subject</th>
+                <th>Message</th>
+                <th>Date</th>
+                <th>Time</th>
+            </tr>
+
+            {% for vm in recivedmsg %}
+
+            <tr>
+                <td>{{vm.sendersid.username}}</td>
+                <td>{{vm.subject}}</td>
+                <td>{{vm.message}}</td>
+                <td>{{vm.date}}</td>
+                <td>{{vm.time}}</td>
+
+
+
+
+                <td><input type="checkbox" name="trash" value="{{vm.id}}"></td>
+                <td><a href="{% url 'forward' vm.id %}"> Forward Message </td>
+                <td><a href="{% url 'reply' vm.id %}"> Reply Message </td>
+
+            </tr>
+
+
+            {% endfor %}
+
+            <tr>
+                <td><input type="submit" value="Trash"></td>
+            </tr>
+
+        </table>
+    </form>
+</body>
+
+{% if messages %}
+{% for msg in messages %}
+<script>
+    alert('{{msg}}')
+</script>
+{% endfor %}
+{% endif %}
+
+</html>

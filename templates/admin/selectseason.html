@@ -1,0 +1,78 @@
+<html>
+
+<script type="text/javascript">
+
+    function validation() {
+
+        var alpha = /^[a-zA-Z]+$/;
+        var num = /^[0-9]+$/;
+
+        var discription = document.getElementById("discription")
+        var season = document.getElementById("season")
+    
+
+        if (discription.value.length == 0) {
+            alert("please enter a discription on the season")
+            return false;
+        }
+
+
+        else if (season.value.length == 0) {
+            alert("please enter a season")
+            return false;
+        }
+
+        else {
+            return true;
+        }
+    }
+</script>
+
+<body>
+
+    <form method="post" action="{% url 'seasonselectAction' %}">
+        {% csrf_token %}
+
+
+        <table>
+
+
+
+            <tr>
+                <td>Select a Season</td>
+                <td>
+                    <select name="season" id="season">
+                        <option value="">--select--</option>
+                        {% for s in data %}
+                        <option value="{{s.id}}">{{s.seasonname}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+
+            
+
+            <tr>
+                <td> Season Discription</td>
+                <td><input type="text" name="seasonfactor" id="discription"></td>
+            </tr>
+
+            <tr>
+                <td><input type="submit" value="Enter Season" onclick="return validation()"></td>
+            </tr>
+
+        </table>
+
+    </form>
+
+</body>
+
+{% if messages %}
+	{% for msg in messages %}
+	<script>
+		alert('{{msg}}')
+	</script>
+	{% endfor %}
+{% endif %}
+
+</html>

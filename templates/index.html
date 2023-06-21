@@ -1,0 +1,18 @@
+<html>
+    <body>
+        <li><a href="{% url 'login' %}"> Login </a></li>
+        <li><a href="{% url 'userregistration' %}"> User Registration </a></li>
+        <li><a href="{% url 'fourdrop' %}"> Four Dropdown </a></li>
+        <li><a href="{% url 'age' %}"> Age </a></li>
+        <li><a href="{% url 'forgotpass' %}"> Forgot Password </a></li>
+        
+
+    </body>
+    {% if messages %}
+{% for msg in messages %}
+<script>
+    alert('{{msg}}')
+</script>
+{% endfor %}
+{% endif %}
+</html>

@@ -1,0 +1,103 @@
+<html>
+
+<script type="text/javascript">
+
+    function validation() {
+
+        var alpha = /^[a-zA-Z]+$/;
+        var num = /^[0-9]+$/;
+        var fnum=/^[0-9]{2}$/;
+
+        var minage = document.getElementById("minage")
+        var maxage = document.getElementById("maxage")
+        var factor = document.getElementById("factor")
+
+        if (minage.value.length == 0) {
+            alert("All fields are Mandatory")
+            return false;
+        }
+
+        else if (!minage.value.match(num)) {
+            alert("Invalid Characters");
+            minage.focus();
+            return false;
+        }
+
+
+        else if (!minage.value.match(fnum)) {
+            alert("Please Enter a valid Age");
+            minage.focus();
+            return false;
+        }
+
+
+        else if (maxage.value.length == 0) {
+            alert("All fields are Mandatory")
+            return false;
+        }
+
+        else if (!maxage.value.match(num)) {
+            alert("Invalid Characters");
+            maxage.focus();
+            return false;
+        }
+
+
+        else if (!maxage.value.match(fnum)) {
+            alert("Please Enter a valid Age");
+            maxage.focus();
+            return false;
+        }
+
+
+        else if (factor.value.length == 0) {
+            alert("Factor field is Empty");
+            return false;
+        }
+
+        else {
+            return true;
+        }
+    }
+</script>
+
+
+
+<body>
+
+    <form method="post" action="{% url 'ageAction' %}">
+        {%csrf_token%}
+
+        <table>
+            <tr>
+                <td>Maximin Age</td>
+                <td><input type="text" name="maxage" id="maxage"></td>
+            </tr>
+
+            <tr>
+                <td>Minimum Age</td>
+                <td><input type="text" name="minage" id="minage"></td>
+            </tr>
+
+            <tr>
+                <td>Factor</td>
+                <td><input type="text" name="factor" id="factor"></td>
+            </tr>
+
+            <tr>
+                <td><input type="submit" value="Enter" onclick="return validation()"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+{% if messages %}
+{% for msg in messages %}
+<script>
+    alert('{{msg}}')
+</script>
+{% endfor %}
+{% endif %}
+
+
+</html>

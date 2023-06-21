@@ -1,0 +1,31 @@
+<html>
+
+<body>
+    <table>
+
+
+        <tr>
+            <th>Contact ID</th>
+            <th>Name</th>
+            <th>Remarks</th>
+            <th>Date</th>
+            <th>Time</th>
+        </tr>
+
+        {% for b in blacklist %}
+
+        <tr>
+            <td>{{b.contactid_id}}</td>
+            <td>{{b.name}}</td>
+            <td>{{b.remarks}}</td>
+            <td>{{b.date}}</td>
+            <td>{{b.time}}</td>
+            <td><a href="{% url 'deleteblacklist' b.id %}"> Delete </a></td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+</body>
+
+</html>

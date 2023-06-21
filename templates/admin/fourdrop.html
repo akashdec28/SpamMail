@@ -1,0 +1,173 @@
+<html>
+
+<script src="/static/jquery-1.8.3.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#country").change(function () {
+            var cid = $("#country").val();
+            $.ajax({
+
+                url: "{% url 'state' %}",
+                data: { 'country': cid },
+                success: function (data) {
+                    $("#state").html(data);
+                }
+            })
+        })
+    })
+</script>
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#season").change(function () {
+            var fid = $("#season").val();
+            $.ajax({
+
+                url: "{% url 'factor' %}",
+                data: { 'season': fid },
+                success: function (data) {
+                    $("#factor").html(data);
+                }
+            })
+        })
+    })
+</script>
+
+
+
+<script type="text/javascript">
+
+    function validation() {
+
+        var alpha = /^[a-zA-Z]+$/;
+        var num = /^[0-9]+$/;
+
+        var country = document.getElementById("country")
+        var state = document.getElementById("state")
+        var season = document.getElementById("season")
+        var factor = document.getElementById("factor")
+        var month = document.getElementById("month")
+
+        if (country.value.length == 0) {
+            alert("Please enter your country")
+            return false;
+        }
+
+
+        else if (state.value.length == 0) {
+            alert("Please enter your state")
+            return false;
+        }
+
+
+        else if (season.value.length == 0) {
+            alert("Please enter a season")
+            return false;
+        }
+
+
+        else if (factor.value.length == 0) {
+            alert("Please enter a valid factor")
+            return false;
+        }
+
+        else if (month.value.length == 0) {
+            alert("Please enter the month")
+            return false;
+        }
+
+        else {
+            return true;
+        }
+    }
+</script>
+
+
+
+<body>
+
+    <form method="post" action="{% url 'fourdropAction' %}">
+        {%csrf_token%}
+
+        <table>
+            <tr>
+                <td>Country</td>
+                <td>
+                    <select name="country" id="country">
+                        <option value="">--select--</option>
+                        {% for c in country %}
+                        <option value="{{c.id}}">{{c.country}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>State</td>
+                <td>
+                    <select name="state" id="state">
+                        <option value="">--select--</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Season</td>
+                <td>
+                    <select name="season" id="season">
+                        <option value="">--select--</option>
+                        {% for se in season %}
+                        <option value="{{se.id}}">{{se.seasonname}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Factor</td>
+                <td>
+                    <select name="factor" id="factor">
+                        <option value="">--select--</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Month</td>
+                <td>
+                    <select name="month" id="month">
+                        <option value="">--select--</option>
+                        <option value="1">January</option>
+                        <option value="2">Feburary</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td><input type="submit" value="Enter" onclick="return validation()"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+{% if messages %}
+{% for msg in messages %}
+<script>
+    alert('{{msg}}')
+</script>
+{% endfor %}
+{% endif %}
+
+</html>

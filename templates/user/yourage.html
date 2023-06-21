@@ -1,0 +1,35 @@
+<html>
+
+<body>
+
+    <form method="post" action="{% url 'yourageAction' %}">
+        {%csrf_token%}
+
+    <table>
+        <tr>
+            <td>Your Age Category</td>
+            <td>
+                <select name="factor" id="factor">
+                    <option value="">--select--</option>
+                    {% for a in age %}
+                    <option value="{{a.id}}">{{a.factor}}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td><input type="submit" value="Enter"></td>
+        </tr>
+    </table>
+</form>
+
+</body>
+{% if messages %}
+{% for msg in messages %}
+<script>
+    alert('{{msg}}')
+</script>
+{% endfor %}
+{% endif %}
+</html>

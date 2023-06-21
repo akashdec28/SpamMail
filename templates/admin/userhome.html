@@ -1,0 +1,29 @@
+<html>
+    <body>
+        <li><a href="{% url 'sendmessage' %}"> Send Message </a></li>
+        <li><a href="{% url 'viewmessage' %}"> View Sent Message </a></li>
+        <li><a href="{% url 'viewrecivedmsg' %}"> View Recived Message </a></li>
+        <li><a href="{% url 'viewtrash' %}"> View Trash Messages </a></li>
+        <li><a href="{% url 'newcontact' %}"> Add New Contact </a></li>
+        <li><a href="{% url 'viewcontacts' %}"> View Contacts </a></li>
+        <li><a href="{% url 'blacklist' %}"> Block Contact </a></li>
+        <li><a href="{% url 'viewblacklist' %}"> View Blocked Contacts </a></li>
+        <li><a href="{% url 'uhobie' %}"> User Hobie </a></li>
+        <li><a href="{% url 'yourage' %}"> Your Age </a></li>
+        <li><a href="{% url 'userseason' %}"> Season </a></li>
+        <li><a href="{% url 'viewspam' %}"> View Spam Mail </a></li>
+        <li><a href="{% url 'logout' %}"> Logout </a></li>
+        <li><a href="{% url 'userprofileupdate' %}"> Update your Profile </a></li>
+        <li><a href="{% url 'userquickpasschange' %}"> User Quick Pass Change </a></li>
+    </body>
+
+    {% if messages %}
+{% for msg in messages %}
+<script>
+    alert('{{msg}}')
+</script>
+{% endfor %}
+{% endif %}
+
+
+</html>

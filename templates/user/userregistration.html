@@ -1,0 +1,264 @@
+<html>
+
+<script src="/static/jquery-1.8.3.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#country").change(function () {
+            var cid = $("#country").val();
+            $.ajax({
+
+                url: "{% url 'state' %}",
+                data: { 'country': cid },
+                success: function (data) {
+                    $("#state").html(data);
+                }
+            })
+        })
+    })
+</script>
+
+
+
+<script type="text/javascript">
+
+    function validation()
+    {
+
+    var alpha=/^[a-zA-Z]+$/;
+    var num=/^[0-9]+$/;
+    var fnum=/^[0-9]{10}$/;
+
+    var name=document.getElementById("name")
+    var gender=document.myform.gender;
+    var dob=document.getElementById("dob")
+    var country=document.getElementById("country")
+    var state=document.getElementById("state")
+    var phone=document.getElementById("phone")
+    var address=document.getElementById("address")
+    var username=document.getElementById("username")
+    var password=document.getElementById("password")
+    var sq=document.getElementById("sq")
+    var sa=document.getElementById("sa")
+    var hobies=document.getElementById("hobies")
+
+    if(name.value.length==0)
+    {
+        alert("All field are mandatory");
+    return false;
+    }
+
+
+    else if(!name.value.match(alpha))
+    {
+        alert("Invalid Characters in Name Field");
+    name.focus();
+    return false;
+    }
+
+
+    if(gender[0].checked==false&&gender[1].checked==false)
+    {
+        alert("All field are mandatory");
+    return false;
+    }
+
+
+    else if(dob.value.length==0)
+    {
+        alert("All field are mandatory");
+    return false;
+    }
+
+
+    else if(country.value.length==0)
+    {
+        alert("All field are mandatory");
+    return false;
+    }
+
+
+
+    else if (phone.value.length==0)
+    {
+        alert("All field are mandatory")
+    return false;
+    }
+
+    else if(!phone.value.match(num))
+    {
+        alert("Invalid Characters in Phone Number");
+    phone.focus();
+    return false;
+    }
+
+
+    else if(!phone.value.match(fnum))
+    {
+        alert("Please Enter a valid Phone Number");
+    phone.focus();
+    return false;
+    }
+
+
+
+
+    else if (address.value.length==0)
+    {
+        alert("All field are mandatory")
+return false;
+}
+
+
+
+    else if(username.value.length==0)
+    {
+        alert("All field are mandatory")
+return false;
+}
+
+
+    else if(password.value.length==0)
+    {
+        alert("All field are mandatory")
+return false;
+}
+
+else if(sq.value.length==0)
+    {
+        alert("All field are mandatory")
+return false;
+}
+
+else if(sa.value.length==0)
+    {
+        alert("All field are mandatory")
+return false;
+}
+
+else if(hobies.value.length==0)
+    {
+        alert("All field are mandatory")
+return false;
+}
+
+else if(state.value.length==0)
+    {
+        alert("All field are mandatory")
+return false;
+}
+
+    else
+    {
+return true;
+}
+}
+</script>
+
+
+
+
+
+
+<body>
+
+    <form method="post" action="{% url 'userregisterAction' %}" name="myform">
+        {%csrf_token%}
+
+        <table>
+
+
+            <tr>
+                <td>Name</td>
+                <td><input type="text" name="name" id="name"></td>
+            </tr>
+
+            <tr>
+                <td>Address</td>
+                <td><textarea name="address" id="address" cols="20" rows="10"></textarea></td>
+            </tr>
+
+            <tr>
+                <td>Gender</td>
+                <td>
+                    <input type="radio" name="gender"  value="Male"> Male
+                    <input type="radio" name="gender"  value="Female"> Female
+                    <input type="radio" name="gender"  value="Other"> Other
+                </td>
+            </tr>
+
+            <tr>
+                <td>Country</td>
+                <td>
+                    <select name="country" id="country">
+                        <option value="">--select--</option>
+                        {% for c in country %}
+                        <option value="{{c.id}}">{{c.country}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>State</td>
+                <td>
+                    <select name="state" id="state">
+                        <option value="">--select--</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Phone Number</td>
+                <td><input type="text" name="phone" id="phone"></td>
+            </tr>
+
+            <tr>
+                <td>Date of Birth</td>
+                <td><input type="date" name="dob" id="dob"></td>
+            </tr>
+
+            <tr>
+                <td>Select a Hobie</td>
+                <td>
+                    {% for h in hobies %}
+                    <input type="checkbox" name="hobies" id="hobies" value="{{h.id}}">{{h.name}}
+                    {% endfor %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>Secret Question</td>
+                <td><input type="text" id="sq" name="sq"></td>
+            </tr>
+
+            <tr>
+                <td>Secret Answer</td>
+                <td><input type="text" id="sa" name="sa"></td>
+            </tr>
+
+
+            <tr>
+                <td>Username</td>
+                <td><input type="text"  id="username" name="username">@gmail.com</td>
+            </tr>
+
+            <tr>
+                <td>Password</td>
+                <td><input type="password" id="password" name="password"></td>
+            </tr>
+
+            <tr>
+                <td><input type="submit" value="Register" onclick="return validation()"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+{% if messages %}
+{% for msg in messages %}
+<script>
+    alert('{{msg}}')
+</script>
+{% endfor %}
+{% endif %}
+
+</html>

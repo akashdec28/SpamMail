@@ -1,0 +1,75 @@
+<html>
+
+
+<script type = "text/javascript">
+
+    function validation() {
+
+        var alpha = /^[a-zA-Z]+$/;
+        var num = /^[0-9]+$/;
+
+        var op=document.getElementById("op")
+        var np=document.getElementById("np")
+        var cp=document.getElementById("cp")
+
+        if (op.value.length == 0) 
+        {
+            alert("The fields shouldn't be Empty");
+            return false;
+        }
+
+
+        else if (np.value.length == 0) 
+        {
+            alert("The fields shouldn't be Empty");
+            return false;
+        }
+
+
+        else if (cp.value.length == 0) 
+        {
+            alert("The fields shouldn't be Empty");
+            return false;
+        }
+
+        else {
+            return true;
+        }
+    }
+</script>
+
+
+
+
+<body>
+
+    <form method="post" action="{% url 'userquickpasschangeAction' %}">
+        {%csrf_token%}
+        <table>
+            <tr>
+                <td>Old Password</td>
+                <td><input type="text" name="oldpass" id="op"></td>
+            </tr>
+            <tr>
+                <td>New Password</td>
+                <td><input type="text" name="newpass" id="np"></td>
+            </tr>
+            <tr>
+                <td>Confirm Password</td>
+                <td><input type="text" name="cnfpass" id="cp"></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Change Password" onclick="return validation()"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+{% if messages %}
+{% for msg in messages %}
+<script>
+    alert('{{msg}}')
+</script>
+{% endfor %}
+{% endif %}
+
+</html>

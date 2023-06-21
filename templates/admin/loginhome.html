@@ -1,0 +1,28 @@
+<html>
+
+<body>
+
+    <li><a href="{% url 'hobiename' %}"> Add your Hobies </a></li>
+
+    <li><a href="{% url 'hobie' %}"> Select your Hobies </a></li>
+
+    <li><a href="{% url 'season' %}"> Add Season </a></li>
+
+    <li><a href="{% url 'selectseason' %}"> Select your Season </a></li>
+
+    <li><a href="{% url 'quickpasschange' %}"> Quick Pass Change </a></li>
+
+</body>
+
+
+
+{% if messages %}
+{% for msg in messages %}
+<script>
+    alert('{{msg}}')
+</script>
+{% endfor %}
+{% endif %}
+
+
+</html>

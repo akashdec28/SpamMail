@@ -1,0 +1,56 @@
+<html>
+
+<script type="text/javascript">
+
+    function validation() {
+
+        var alpha = /^[a-zA-Z]+$/;
+        var num = /^[0-9]+$/;
+
+        var name = document.getElementById("name")
+        var phone = document.getElementById("phone")
+    
+
+        if (name.value.length == 0) {
+            alert("please enter your name")
+            return false;
+        }
+
+
+        if (phone.value.length == 0) {
+            alert("please enter your Phone Number")
+            return false;
+        }
+
+        else {
+            return true;
+        }
+    }
+</script>
+
+
+<body>
+    <form method="post" action="{% url 'checkpassAction' %}">
+        {%csrf_token%}
+
+        <input type="hidden" name="username" value="{{data}}">
+
+        <table>
+            <tr>
+                <td>Name</td>
+                <td><input type="text" name="name" id="name"></td>
+            </tr>
+
+            <tr>
+                <td>Phone Number</td>
+                <td><input type="text" name="phone" id="phone"></td>
+            </tr>
+
+            <tr>
+                <td><input type="submit" value="Check" onclick="return validation()"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+</html>

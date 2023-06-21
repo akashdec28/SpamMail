@@ -1,0 +1,75 @@
+<html>
+
+
+<script type="text/javascript">
+
+    function validation() {
+
+        var alpha = /^[a-zA-Z]+$/;
+        var num = /^[0-9]+$/;
+
+        var subject = document.getElementById("subject")
+        var message = document.getElementById("message")
+
+        if (subject.value.length == 0) {
+            alert("The subject field can't be empty");
+            return false;
+        }
+
+        else if (message.value.length == 0)
+        {
+            alert("Message field can't be empty");
+        return false;
+    }
+
+    else
+    {
+        return true;
+    }
+}
+</script>
+
+
+
+
+
+
+
+
+<body>
+
+    <form method="post" action="{% url 'replyAction' %}">
+        {%csrf_token%}
+
+        <table>
+
+
+            {% for r in reply %}
+
+            <tr>
+                <td>Recivers ID</td>
+                <td><input type="text" name="reciversid" value="{{r.sendersid.username}}"></td>
+            </tr>
+
+            <tr>
+                <td>Subject</td>
+                <td><input type="text" name="subject" id="subject"></td>
+            </tr>
+
+            <tr>
+                <td>Message</td>
+                <td><textarea name="message" id="message" cols="50" rows="5"></textarea></td>
+            </tr>
+
+            <tr>
+                <td><input type="submit" value="Reply" onclick="return validation()"></td>
+            </tr>
+
+            {% endfor %}
+
+        </table>
+    </form>
+
+</body>
+
+</html>

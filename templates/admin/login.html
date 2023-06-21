@@ -1,0 +1,55 @@
+<html>
+
+<script type="text/javascript">
+
+    function validation() {
+
+        var alpha = /^[a-zA-Z]+$/;
+        var num = /^[0-9]+$/;
+
+        var username = document.getElementById("username")
+        var password = document.getElementById("password")
+    
+
+        if (username.value.length == 0) {
+            alert("please enter your Username")
+            return false;
+        }
+
+
+        if (password.value.length == 0) {
+            alert("please enter your Password")
+            return false;
+        }
+
+        else {
+            return true;
+        }
+    }
+</script>
+
+
+<body>
+
+    <form method="post" action="{% url 'loginAction' %}">
+        {% csrf_token %}
+
+        <table>
+            <tr>
+                <td>Username</td>
+                <td><input type="text" name="username" id="username"></td>
+            </tr>
+
+            <tr>
+                <td>Password</td>
+                <td><input type="password" name="password" id="password"></td>
+            </tr>
+
+            <tr>
+                <td><input type="submit" value="Login" onclick="return validation()"></td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+</html>

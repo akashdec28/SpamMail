@@ -1,0 +1,33 @@
+<html>
+
+<body>
+    <table>
+
+
+        <tr>
+            <th>Contact ID</th>
+            <th>Name</th>
+            <th>Remarks</th>
+            <th>Date</th>
+            <th>Time</th>
+        </tr>
+
+        {% for c in contacts %}
+
+        <tr>
+            <td>{{c.contactid.username}}</td>
+            <td>{{c.name}}</td>
+            <td>{{c.remarks}}</td>
+            <td>{{c.date}}</td>
+            <td>{{c.time}}</td>
+            <td><a href="{% url 'deletecontact' c.id %}"> Delete </a></td>
+            <td><a href="{% url 'movetoblacklist' c.id %}"> Move to Blacklist </a></td>
+           
+        </tr>
+
+        {% endfor %}
+
+    </table>
+</body>
+
+</html>

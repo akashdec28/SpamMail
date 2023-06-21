@@ -1,0 +1,115 @@
+<html>
+
+
+<script src="/static/jquery-1.8.3.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $("#reciversname").change(function () {
+
+            var receivername = $("#reciversname").val();
+            $.ajax({
+                url: "{% url 'checkreciversid' %}",
+                data: { 'recivername': receivername },
+                success: function (data) {
+                    if (data.valid == "not exist") {
+                        alert("reciver do not exist")
+                        $("#receivername").val('');
+                    }
+                }
+            });
+        });
+
+    });
+
+
+
+
+
+</script>
+
+
+
+
+
+<script type="text/javascript">
+
+    function validation() {
+
+        var alpha = /^[a-zA-Z]+$/;
+        var num = /^[0-9]+$/;
+
+        var reciversname = document.getElementById("reciversname")
+        var subject = document.getElementById("subject")
+        var message = document.getElementById("message")
+
+        if (reciversname.value.length == 0) {
+            alert("Please enter the Reciver details")
+            return false;
+        }
+
+
+        if (subject.value.length == 0) {
+            alert("The subject field can't be empty")
+            return false;
+        }
+
+
+        else if (message.value.length == 0) {
+            alert("Please type a message")
+            return false;
+        }
+
+        else {
+            return true;
+        }
+    }
+</script>
+
+
+
+
+
+<body>
+
+    <form method="post" action="{% url 'sendmessageAction' %}">
+        {%csrf_token%}
+
+        <table>
+
+            <input type="hidden" name="sendersid" value="uid">
+
+            <tr>
+                <td>Recivers ID</td>
+                <td><input type="text" name="reciversid" id="reciversname"></td>
+            </tr>
+
+            <tr>
+                <td>Subject</td>
+                <td><input type="text" name="subject" id="subject"></td>
+            </tr>
+
+            <tr>
+                <td>Message</td>
+                <td><textarea name="message" id="message" cols="50" rows="5"></textarea></td>
+            </tr>
+
+            <tr>
+                <td><input type="submit" value="Send Message" onclick="return validation()"></td>
+            </tr>
+
+        </table>
+    </form>
+
+</body>
+
+{% if messages %}
+{% for msg in messages %}
+<script>
+    alert('{{msg}}')
+</script>
+{% endfor %}
+{% endif %}
+
+
+</html>

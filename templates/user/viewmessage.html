@@ -1,0 +1,29 @@
+<html>
+    <body>
+        <table>
+
+            <tr>
+                <th>Senders ID</th>
+                <th>Subject</th>
+                <th>Message</th>
+                <th>Date</th>
+                <th>Time</th>
+            </tr>
+
+            {% for vm in viewmessage %}
+
+            <tr>
+                <td>{{vm.reciversid.username}}</td>
+                <td>{{vm.subject}}</td>
+                <td>{{vm.message}}</td>
+                <td>{{vm.date}}</td>
+                <td>{{vm.time}}</td>
+            </tr>
+
+            <td><a href="{% url 'deletemsg' vm.id %}"> Delete Message </td>
+
+            {% endfor %}
+
+        </table>
+    </body>
+</html>
